@@ -1,0 +1,37 @@
+﻿@{
+    ViewData["Title"] = "Gizlilik";
+}
+
+<div class="container mt-5">
+    <div class="card shadow-sm border-0 p-4 text-center">
+        <div class="card-body">
+            <i class="bi bi-shield-lock text-primary display-4"></i>
+            <h2 class="fw-bold mt-3">Gizlilik Hakkında Kısa Not</h2>
+            <hr class="my-4 mx-auto w-25">
+
+            <p class="lead text-muted">
+                Nexus Portal, sadece eğitim ve geliştirme amaçlı bir projedir.
+            </p>
+
+            <div class="row text-start mt-5 justify-content-center">
+                <div class="col-md-8">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item bg-transparent">
+                            <strong>🔐 Güvenlik:</strong> Şifreleriniz veritabanında okunamaz (hashed) halde saklanır.
+                        </li>
+                        <li class="list-group-item bg-transparent">
+                            <strong>🔍 Onay Süreci:</strong> Kayıt sonrası verileriniz Admin onayına düşer, onaylanana kadar içerideki modülleri (Event Tracker, Vet vb.) göremezsiniz.
+                        </li>
+                        <li class="list-group-item bg-transparent">
+                            <strong>🚫 Veri Paylaşımı:</strong> Bilgileriniz üçüncü şahıslarla paylaşılmaz; sadece Antalya'daki bu yerel sunucuda (Nexus Portal) kalır.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-5">
+                <a asp-controller="Home" asp-action="Index" class="btn btn-primary px-4">Anladım, Devam Et</a>
+            </div>
+        </div>
+    </div>
+</div>

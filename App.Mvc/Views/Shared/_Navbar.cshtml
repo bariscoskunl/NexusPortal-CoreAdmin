@@ -1,0 +1,66 @@
+﻿<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm mb-3">
+        <div class="container-fluid">
+            @* CoreAdmin markası zaten ana sayfaya (Home/Index) yönlendiriyor *@
+            <a class="navbar-brand fw-bold text-primary" asp-controller="Home" asp-action="Index">
+                <i class="bi bi-cpu"></i> CoreAdmin
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    @* Ana Sayfa linki kaldırıldı, diğer yetki linkleri kaldı *@
+
+                    @if (User.IsInRole("Admin") || User.IsInRole("SuperAdmin"))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Admin" asp-action="Index">Onay Bekleyenler</a>
+                        </li>
+                    }
+
+                    @if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin"))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Admin" asp-action="UserManagement">Yetki Yönetimi</a>
+                        </li>
+                    }
+
+                    @if (User.IsInRole("Moderator"))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Admin" asp-action="Moderator">Moderatör Paneli</a>
+                        </li>
+                    }
+                </ul>
+
+                @* Sağ taraf: Kullanıcı İşlemleri *@
+                <ul class="navbar-nav">
+                    @if (User.Identity?.IsAuthenticated == true)
+                    {
+                        <li class="nav-item">
+                            <span class="nav-link text-muted me-2">
+                                <i class="bi bi-person-circle"></i> @User.Identity.Name
+                                <span class="badge bg-secondary ms-1">@User.Claims.FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.Role)?.Value</span>
+                            </span>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-outline-danger btn-sm mt-1" asp-controller="Auth" asp-action="Logout">Çıkış Yap</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Auth" asp-action="Register">Kayıt Ol</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-primary btn-sm mt-1 ms-lg-2" asp-controller="Auth" asp-action="Login">Giriş Yap</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>

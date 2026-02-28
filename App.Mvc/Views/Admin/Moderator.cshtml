@@ -1,0 +1,94 @@
+﻿@using System.Security.Claims
+@{
+    ViewData["Title"] = "Moderator Denetim Paneli";
+    var serverTime = User.FindFirstValue("Server-Time"); // AuthController'da eklediğin özel claim
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
+        <div>
+            <h2 class="fw-bold text-info"><i class="bi bi-shield-shaded"></i> Moderator Paneli</h2>
+            <p class="text-muted mb-0">Sistem içeriklerini ve operasyonel kayıtları buradan denetleyebilirsiniz.</p>
+        </div>
+        <div class="text-end">
+            <div class="small text-muted">Son Güncelleme</div>
+            <span class="badge bg-info text-dark">@serverTime</span>
+        </div>
+    </div>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm bg-info text-white">
+                <div class="card-body">
+                    <h6 class="card-title text-uppercase small fw-bold">Aktif Etkinlikler</h6>
+                    <h2 class="mb-0">12</h2>
+                    <small>Event Tracker Modülü</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm bg-secondary text-white">
+                <div class="card-body">
+                    <h6 class="card-title text-uppercase small fw-bold">Bekleyen Randevular</h6>
+                    <h2 class="mb-0">5</h2>
+                    <small>Veteriner Kliniği Sistemi</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm bg-light">
+                <div class="card-body">
+                    <h6 class="card-title text-uppercase small fw-bold text-muted">Bugünkü Raporlar</h6>
+                    <h2 class="mb-0 text-dark">8</h2>
+                    <small class="text-muted">Kullanıcı Bildirimleri</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-white py-3">
+            <h5 class="card-title mb-0 fw-bold"><i class="bi bi-clipboard-data me-2"></i> Son İçerik Hareketleri</h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Modül</th>
+                            <th>İşlem Yapan</th>
+                            <th>Detay</th>
+                            <th>Tarih</th>
+                            <th class="text-end">Durum</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="badge bg-outline-info text-info border border-info">Event Tracker</span></td>
+                            <td>Charlie Brown</td>
+                            <td>"Haftalık Yazılımcı Buluşması" eklendi</td>
+                            <td>@DateTime.Now.AddHours(-2).ToString("HH:mm")</td>
+                            <td class="text-end text-success fw-bold">İncelendi</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge bg-outline-secondary text-secondary border border-secondary">Veteriner</span></td>
+                            <td>Alice Johnson</td>
+                            <td>Yeni hasta kaydı oluşturuldu</td>
+                            <td>@DateTime.Now.AddHours(-5).ToString("HH:mm")</td>
+                            <td class="text-end text-warning fw-bold">Beklemede</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-4 d-flex gap-2">
+        <a asp-controller="Home" asp-action="AdminOrModerator" class="btn btn-outline-info">
+            <i class="bi bi-arrow-left"></i> Ortak Panele Dön
+        </a>
+        <button class="btn btn-info text-white">
+            <i class="bi bi-file-earmark-pdf"></i> Günlük Rapor Al
+        </button>
+    </div>
+</div>

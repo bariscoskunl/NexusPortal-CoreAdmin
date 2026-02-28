@@ -1,0 +1,77 @@
+﻿@using System.Security.Claims
+@{
+    ViewData["Title"] = "Dashboard";
+    var userName = User.Identity?.Name ?? "Guest";
+    var serverTime = User.FindFirstValue("Server-Time"); // AuthController'da eklediğin özel claim
+    var userRole = User.FindFirstValue(ClaimTypes.Role);
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-12 mb-4">
+            <div class="card shadow-sm border-0 bg-primary text-white">
+                <div class="card-body p-4">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h1 class="display-5 fw-bold">Hoş geldin, @userName!</h1>
+                            <p class="lead mb-0">Sistem şu an @userRole yetkileriyle kullanımına hazır.</p>
+                        </div>
+                        <div class="text-end">
+                            <span class="badge bg-light text-primary p-2">
+                                <i class="bi bi-clock"></i> Giriş Zamanı: @serverTime
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-transparent fw-bold">Profil Bilgileri</div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Yetki Seviyesi:
+                            <span class="badge bg-info text-dark">@userRole</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Hesap Durumu:
+                            <span class="badge bg-success">Onaylı</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-transparent fw-bold">Hızlı İşlemler</div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <div class="col-6">
+                                <a asp-action="Admin" class="btn btn-outline-primary w-100 p-3">
+                                    <i class="bi bi-people"></i> Kullanıcı Onay Paneli
+                                </a>
+                            </div>
+                        }
+
+                        <div class="col-6">
+                            <a href="#" class="btn btn-outline-secondary w-100 p-3">
+                                <i class="bi bi-gear"></i> Hesap Ayarları
+                            </a>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="alert alert-info mb-0">
+                                <strong>Bilgi:</strong> Event Tracker ve Veteriner Yönetim Sistemi modülleri yakında aktif edilecektir!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
