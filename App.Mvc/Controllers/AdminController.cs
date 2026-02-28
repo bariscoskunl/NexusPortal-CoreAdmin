@@ -38,16 +38,22 @@ namespace App.Mvc.Controllers
             return View(activeUsers);
         }
 
+        [HttpPost]
         [Authorize(Roles = "SuperAdmin,Admin")]
         public async Task<IActionResult> Approve(int id)
         {
             var user = await _dbContext.Users.FindAsync(id);
+
             if (user != null)
             {
-                user.IsApproved = true;
+                user.IsApproved = true;   
+                user.IsRejected = false; 
+
                 await _dbContext.SaveChangesAsync();
             }
-            return RedirectToAction("Index");
+
+            
+            return RedirectToAction("RejectedUsers");
         }
 
         [Authorize(Roles = "SuperAdmin,Admin")]
